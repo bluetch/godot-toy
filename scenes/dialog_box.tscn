@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cdei7hlvcxr2e"]
+
+[ext_resource type="Script" uid="uid://hv67j6g12kar" path="res://scripts/dialog_box.gd" id="1_xvd2c"]
+[ext_resource type="FontFile" uid="uid://dbjl1e6kdxpl6" path="res://assets/fonts/PixelOperator8.ttf" id="2_tihiy"]
+
+[node name="DialogBox" type="CanvasLayer" unique_id=487093465]
+script = ExtResource("1_xvd2c")
+
+[node name="Control" type="Control" parent="." unique_id=690360608]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control" unique_id=1355300407]
+visible = false
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Control/Panel" unique_id=2128170661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_tihiy")
+theme_override_font_sizes/font_size = 32
+metadata/_edit_use_anchors_ = true

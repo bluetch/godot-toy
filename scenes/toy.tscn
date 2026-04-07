@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dxivpmcbbab63"]
+
+[ext_resource type="Script" uid="uid://2nplqs5wpotg" path="res://scripts/toy.gd" id="1_2u4uf"]
+[ext_resource type="Texture2D" uid="uid://ckkelhqrkqubj" path="res://assets/sprites/clock.png" id="1_bwicb"]
+[ext_resource type="FontFile" uid="uid://dbjl1e6kdxpl6" path="res://assets/fonts/PixelOperator8.ttf" id="3_fc7xt"]
+[ext_resource type="Texture2D" uid="uid://c3vppvdpfih2f" path="res://assets/sprites/clock_tilemap.png" id="3_gvm4y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2u4uf"]
+atlas = ExtResource("1_bwicb")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_us26p"]
+atlas = ExtResource("3_gvm4y")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sg5ew"]
+atlas = ExtResource("3_gvm4y")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fc7xt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2u4uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_us26p")
+}],
+"loop": true,
+"name": &"broken",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sg5ew")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvm4y"]
+
+[node name="Toy" type="Area2D" unique_id=261078512]
+scale = Vector2(4, 4)
+script = ExtResource("1_2u4uf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1173223273]
+sprite_frames = SubResource("SpriteFrames_fc7xt")
+animation = &"broken"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1810999779]
+shape = SubResource("RectangleShape2D_gvm4y")
+
+[node name="Label" type="Label" parent="." unique_id=1556055948]
+visible = false
+offset_left = -22.0
+offset_top = 18.0
+offset_right = 24.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("3_fc7xt")
+theme_override_font_sizes/font_size = 8
+text = "E 互動"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
