@@ -1,10 +1,13 @@
 [gd_scene format=3 uid="uid://sreikwgiey64"]
 
+[ext_resource type="PackedScene" uid="uid://cvhmylvyhv8ym" path="res://scenes/repair_ui.tscn" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://cg2jjkilirhqb" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dxivpmcbbab63" path="res://scenes/toy.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cdei7hlvcxr2e" path="res://scenes/dialog_box.tscn" id="3_lnu2h"]
 
 [node name="Game" type="Node2D" unique_id=560957664]
+
+[node name="RepairUI" parent="." unique_id=1430170932 instance=ExtResource("1_lbhrr")]
 
 [node name="Toy" parent="." unique_id=261078512 instance=ExtResource("2_yqjtg")]
 position = Vector2(326, 281)

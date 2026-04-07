@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cvhmylvyhv8ym"]
+
+[ext_resource type="Script" uid="uid://ojsdtyq76a0t" path="res://scripts/repair_ui.gd" id="1_7qrqv"]
+
+[node name="RepairUI" type="CanvasLayer" unique_id=1430170932]
+script = ExtResource("1_7qrqv")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=2073774038]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1000991552]
+layout_mode = 2
+alignment = 1
+
+[node name="HintLabel" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1950558143]
+layout_mode = 2
+text = "按住E修復"
+
+[node name="Bar" type="ProgressBar" parent="CenterContainer/VBoxContainer" unique_id=437065108]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
