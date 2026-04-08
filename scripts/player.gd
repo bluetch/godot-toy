@@ -4,7 +4,7 @@ const SPEED = 300.0
 var near_object = null
 
 @onready var dialogue_box = $'../DialogBox'
-@onready var repair_ui: CanvasLayer = $"../RepairUI"
+@onready var repair_minigame = $'../RepairMinigame'
 
 
 enum State { IDLE, TALKING_BEFORE, REPAIRING, TALKING_AFTER }
@@ -12,12 +12,12 @@ var state: State = State.IDLE
 
 func _ready():
 	dialogue_box.dialogue_finished.connect(_on_dialogue_finished)
-	repair_ui.repair_completed.connect(_on_repair_completed)
+	repair_minigame.minigame_completed.connect(_on_repair_completed)
 
 func _on_dialogue_finished():
 	if state == State.TALKING_BEFORE and near_object:
 		state = State.REPAIRING
-		repair_ui.start()
+		repair_minigame.start()
 	else:
 		state = State.IDLE
 		

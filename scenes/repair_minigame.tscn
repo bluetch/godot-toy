@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bn3wux6sy48ld"]
+
+[ext_resource type="Script" uid="uid://b2dtmtdihmnbd" path="res://scripts/repair_minigame.gd" id="1_4vdgr"]
+[ext_resource type="Texture2D" uid="uid://bue6sdetwmrdi" path="res://assets/sprites/clock_face.png" id="1_o5f7i"]
+[ext_resource type="Texture2D" uid="uid://b8ymsf0xpsth8" path="res://assets/sprites/clock_hand_hour.png" id="2_4vdgr"]
+[ext_resource type="Texture2D" uid="uid://bxlhh21ajhadc" path="res://assets/sprites/clock_hand_minute.png" id="3_wwggm"]
+[ext_resource type="AudioStream" uid="uid://13k2n8reyutl" path="res://assets/audio/confirmation_002.ogg" id="5_wwggm"]
+
+[node name="RepairMinigame" type="CanvasLayer" unique_id=1333056559]
+script = ExtResource("1_4vdgr")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=64483881]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.7058824)
+
+[node name="ClockFace" type="Sprite2D" parent="." unique_id=1469587361]
+position = Vector2(678, 363)
+scale = Vector2(3, 3)
+texture = ExtResource("1_o5f7i")
+
+[node name="HourHand" type="Sprite2D" parent="." unique_id=1370994061]
+position = Vector2(502, 372)
+rotation = 0.7853982
+scale = Vector2(2, 2)
+texture = ExtResource("2_4vdgr")
+offset = Vector2(0, -16)
+
+[node name="MinuteHand" type="Sprite2D" parent="." unique_id=1152822305]
+position = Vector2(506, 598)
+rotation = -0.74700093
+scale = Vector2(2, 2)
+texture = ExtResource("3_wwggm")
+offset = Vector2(0, -20)
+
+[node name="SnapSound" type="AudioStreamPlayer2D" parent="." unique_id=1791799205]
+stream = ExtResource("5_wwggm")
+
+[node name="HintButton" type="Button" parent="." unique_id=81242553]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -69.0
+offset_top = -52.0
+offset_right = -29.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "提示"
+
+[node name="SnapHint" type="ColorRect" parent="." unique_id=1699437360]
+visible = false
+offset_right = 80.0
+offset_bottom = 80.0
+color = Color(1, 1, 1, 0.21568628)
