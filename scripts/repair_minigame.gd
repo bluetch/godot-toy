@@ -32,7 +32,7 @@ func _ready():
 	snap_hint.position = clock_center - Vector2(40, 40)
 	snap_hint.hide()
 	hide()
-	hint_button.pressed.connect(_on_hint_button_pressed)
+	hint_button.pressed.connect(Callable(self, "_on_hint_button_pressed"))
 	
 func start():
 	# 開始監聽
@@ -55,6 +55,9 @@ func _random_position_around_clock() -> Vector2:
 	return clock_center + Vector2(cos(angle), sin(angle)) * distance
 	
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if not hint_button.disabled and hint_button.get_global_rect().has_point(event.position):
+			_on_hint_button_pressed()
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			#檢查點到哪跟指針
