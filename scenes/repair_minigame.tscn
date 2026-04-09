@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b2dtmtdihmnbd" path="res://scripts/repair_minigame.gd" id="1_4vdgr"]
 [ext_resource type="Texture2D" uid="uid://bue6sdetwmrdi" path="res://assets/sprites/clock_face.png" id="1_o5f7i"]
 [ext_resource type="Texture2D" uid="uid://b8ymsf0xpsth8" path="res://assets/sprites/clock_hand_hour.png" id="2_4vdgr"]
+[ext_resource type="Texture2D" uid="uid://dhl1nbkhnrqq5" path="res://assets/images/repair_background.png" id="2_18v33"]
 [ext_resource type="Texture2D" uid="uid://bxlhh21ajhadc" path="res://assets/sprites/clock_hand_minute.png" id="3_wwggm"]
 [ext_resource type="AudioStream" uid="uid://13k2n8reyutl" path="res://assets/audio/confirmation_002.ogg" id="5_wwggm"]
 
@@ -17,6 +18,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0.7058824)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1988177463]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_18v33")
 
 [node name="ClockFace" type="Sprite2D" parent="." unique_id=1469587361]
 position = Vector2(678, 363)
@@ -52,6 +58,7 @@ offset_right = -29.0
 offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 32
 text = "提示"
 
 [node name="SnapHint" type="ColorRect" parent="." unique_id=1699437360]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3vppvdpfih2f"
-path="res://.godot/imported/clock_tilemap.png-a74bd22959e48cd8ac65b33b431bad91.ctex"
+uid="uid://dadtscaliujgv"
+path="res://.godot/imported/clockman_tilemap.png-73f1aeb6530be3c2da71ac10148adaa8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/clock_tilemap.png"
-dest_files=["res://.godot/imported/clock_tilemap.png-a74bd22959e48cd8ac65b33b431bad91.ctex"]
+source_file="res://assets/sprites/clockman_tilemap.png"
+dest_files=["res://.godot/imported/clockman_tilemap.png-73f1aeb6530be3c2da71ac10148adaa8.ctex"]
 
 [params]
 

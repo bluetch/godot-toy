@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bn3wux6sy48ld" path="res://scenes/repair_minigame.tscn" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dxivpmcbbab63" path="res://scenes/toy.tscn" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://cdei7hlvcxr2e" path="res://scenes/dialog_box.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://ck1d5lhwvvadk" path="res://scenes/day_transition.tscn" id="5_iywne"]
 
 [node name="Game" type="Node2D" unique_id=560957664]
 
 [node name="RepairMinigame" parent="." unique_id=1333056559 instance=ExtResource("2_iywne")]
+visible = false
 
 [node name="Toy" parent="." unique_id=261078512 instance=ExtResource("2_yqjtg")]
 position = Vector2(326, 281)
@@ -16,3 +18,5 @@ position = Vector2(326, 281)
 position = Vector2(170, 300)
 
 [node name="DialogBox" parent="." unique_id=487093465 instance=ExtResource("3_lnu2h")]
+
+[node name="DayTransition" parent="." unique_id=1091179209 instance=ExtResource("5_iywne")]

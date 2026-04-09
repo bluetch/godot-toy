@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://ck1d5lhwvvadk"]
+
+[ext_resource type="Script" uid="uid://djxcdcwt2lbc3" path="res://scripts/day_transition.gd" id="1_r8vl7"]
+
+[node name="DayTransition" type="CanvasLayer" unique_id=1091179209]
+script = ExtResource("1_r8vl7")
+
+[node name="Overlay" type="ColorRect" parent="." unique_id=1944749160]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DayLabel" type="Label" parent="." unique_id=1353908730]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "第一天結束"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
