@@ -15,7 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Control" unique_id=1355300407]
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -34,6 +34,7 @@ grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_tihiy")
 theme_override_font_sizes/font_size = 32
 text = "文字暫留"
+autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="Arrow" type="Label" parent="Control/Panel" unique_id=593448470]
