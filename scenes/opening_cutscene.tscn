@@ -1,0 +1,198 @@
+[gd_scene format=3 uid="uid://c0swrriuwgntu"]
+
+[sub_resource type="GDScript" id="GDScript_fapxi"]
+script/source = "extends CanvasLayer
+
+@onready var background: ColorRect = $Background
+@onready var panel_bg: ColorRect = $Control/PanelBg
+@onready var speaker_label: Label = $Control/PanelBg/Speaker
+@onready var text_label: Label = $Control/PanelBg/TextLabel
+@onready var arrow: Label = $Control/PanelBg/Arrow
+
+const CHAR_DELAY = 0.035
+
+const BEATS = [
+	# ── 街頭 ──
+	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"旁白\", \"text\": \"秋天的下午，放學路上。\" },
+	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"女同學\", \"text\": \"欸，你背包上掛的是什麼啊？好舊喔。\" },
+	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"主角\", \"text\": \"⋯⋯朋友送的。很重要的人。\" },
+	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"女同學\", \"text\": \"哦～感覺好可愛喔。\" },
+	# ── 男人出現 ──
+	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"旁白\", \"text\": \"一個穿深色大衣的男人走上前，帶著過分親切的笑。\" },
+	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"男人\", \"text\": \"兩位同學好！本店今天新開幕——送你們各一枚扭蛋代幣，歡迎進來看看！\" },
+	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"女同學\", \"text\": \"哇，真的假的！走走走！\" },
+	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"旁白\", \"text\": \"她握著代幣，跟了進去。\" },
+	# ── 店內 ──
+	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"店內燈光昏黃，架子上一排排扭蛋機發著光。\" },
+	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"女同學已經跟著那個男人往裡面走了，說說笑笑。\" },
+	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"她停下腳步。牆角有一條縫⋯⋯不太對勁的縫。\" },
+	# ── 隱藏走廊 ──
+	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"走廊很窄，天花板很低，燈是壞的。\" },
+	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"走廊盡頭有一台全白的扭蛋機。機器內透出微微的黃光。\" },
+	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"她握著代幣，放進去。\" },
+	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"扭蛋緩緩滾出⋯⋯眼前一片白。\" },
+	# ── 工廠，醒來 ──
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"⋯⋯塵灰的味道。木頭和鏽的味道。\" },
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她睜開眼，發現自己趴在地上。\" },
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"主角\", \"text\": \"⋯⋯夢嗎。\" },
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她緩緩起身，低頭看了看自己的手——布製的，有縫線，有鈕扣眼。\" },
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"主角\", \"text\": \"⋯⋯好吧。\" },
+	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她站起來，漫不經心地走進這座廢棄的工廠。\" },
+]
+
+# 現在在第幾個beat
+var _current_beat: int = 0
+# 這個beat的完整台詞
+var _full_text: String = \"\"
+# 打字機目前打到第幾個字
+var _char_index: int = 0
+# 是否還在打字中
+var _is_typing: bool = false
+# 背景tween進行中時所著輸入
+var _can_input: bool = false
+# 防止結束動作被觸發兩次
+var _ending: bool = false
+
+func _ready() -> void:
+	panel_bg.visible = false
+	background.color = Color.BLACK
+	_show_beat(0)
+	
+func _show_beat(index: int) -> void:
+	_can_input = false
+	var beat = BEATS[index]
+	
+	var tween = create_tween()
+	tween.tween_property(background, \"color\", beat[\"bg\"], 0.5)
+	await tween.finished
+	
+	if not panel_bg.visible:
+		panel_bg.visible = true
+		
+	speaker_label.text = beat[\"speaker\"]
+	_full_text = beat[\"text\"]
+	_char_index = 0
+	_is_typing = true
+	arrow.visible = false
+	text_label.text = \"\"
+	_can_input = true
+	_type_next_char()
+
+func _type_next_char() -> void:
+	if not _is_typing:
+		return	
+	if _char_index < _full_text.length():
+		_char_index += 1
+		text_label.text = _full_text.left(_char_index)
+		get_tree().create_timer(CHAR_DELAY).timeout.connect(_type_next_char, CONNECT_ONE_SHOT)
+	else:
+		_is_typing = false
+		arrow.visible = true
+		
+func _finish_typing() -> void:
+	_is_typing = false
+	text_label.text = _full_text
+	arrow.visible = true
+	
+func _input(event: InputEvent) -> void:
+	# Escape 不受 _can_input 限制，隨時可以跳過整個開場
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		_end_cutscene()
+		return
+
+	# 背景 tween 進行中時鎖住輸入，避免玩家亂按跳過動畫
+	if not _can_input:
+		return
+	if not (event is InputEventKey and event.pressed) and \\
+	   not (event is InputEventMouseButton and event.pressed):
+		return
+
+	# 還在打字中：快進到完整文字，不跳下一句
+	if _is_typing:
+		_finish_typing()
+		return
+
+	# 已打完：推進到下一個 beat，或結束過場
+	_current_beat += 1
+	if _current_beat >= BEATS.size():
+		_end_cutscene()
+	else:
+		_show_beat(_current_beat)
+
+func _end_cutscene() -> void:
+	if _ending:
+		return
+	_ending = true
+	_can_input = false
+	var tween = create_tween()
+	tween.tween_property(background, \"color\", Color.BLACK, 1.0)
+	await tween.finished
+	get_tree().change_scene_to_file(\"res://scenes/game.tscn\")
+"
+
+[node name="OpeningCutscene" type="CanvasLayer" unique_id=1185277889]
+script = SubResource("GDScript_fapxi")
+
+[node name="Background" type="ColorRect" parent="." unique_id=577596383]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="." unique_id=604374135]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelBg" type="ColorRect" parent="Control" unique_id=842929319]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Speaker" type="Label" parent="Control/PanelBg" unique_id=408836885]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 8.0
+offset_right = -20.0
+offset_bottom = 36.0
+grow_horizontal = 2
+
+[node name="TextLabel" type="Label" parent="Control/PanelBg" unique_id=99743997]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 40.0
+offset_right = -40.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+autowrap_mode = 3
+
+[node name="Arrow" type="Label" parent="Control/PanelBg" unique_id=721153488]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -36.0
+offset_right = -17.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "▼"

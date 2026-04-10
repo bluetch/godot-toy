@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="toy"
-run/main_scene="uid://sreikwgiey64"
+run/main_scene="uid://c0swrriuwgntu"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom="uid://b8b863gbruqoe"
 
 [input]
 

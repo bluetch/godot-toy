@@ -1,0 +1,6 @@
+[gd_resource type="Theme" format=3 uid="uid://b8b863gbruqoe"]
+
+[ext_resource type="FontFile" uid="uid://dm8umiq8m2376" path="res://assets/fonts/Roboto-Regular.ttf" id="1_nixot"]
+
+[resource]
+default_font = ExtResource("1_nixot")

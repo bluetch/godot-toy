@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://sreikwgiey64"]
 
+[ext_resource type="Texture2D" uid="uid://bbshmchhul8ro" path="res://assets/backgrounds/factory_bg.png" id="1_p57ef"]
 [ext_resource type="PackedScene" uid="uid://cg2jjkilirhqb" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://bn3wux6sy48ld" path="res://scenes/repair_minigame.tscn" id="2_iywne"]
 [ext_resource type="PackedScene" uid="uid://dxivpmcbbab63" path="res://scenes/toy.tscn" id="2_yqjtg"]
@@ -8,15 +9,20 @@
 
 [node name="Game" type="Node2D" unique_id=560957664]
 
+[node name="Background" type="Sprite2D" parent="." unique_id=974346191]
+position = Vector2(640, 362)
+texture = ExtResource("1_p57ef")
+
 [node name="RepairMinigame" parent="." unique_id=1333056559 instance=ExtResource("2_iywne")]
 visible = false
 
 [node name="Toy" parent="." unique_id=261078512 instance=ExtResource("2_yqjtg")]
-position = Vector2(326, 281)
+position = Vector2(633, 438)
 
 [node name="Player" parent="." unique_id=1977881528 instance=ExtResource("1_uwrxv")]
-position = Vector2(170, 300)
+position = Vector2(177, 452)
 
 [node name="DialogBox" parent="." unique_id=487093465 instance=ExtResource("3_lnu2h")]
 
 [node name="DayTransition" parent="." unique_id=1091179209 instance=ExtResource("5_iywne")]
+visible = false
