@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b00m3o72n2ki2"
-path="res://.godot/imported/girl_tileset.png-2547a1caf52d1fb4cc3ffd8c11406fcf.ctex"
+uid="uid://bklv4a12jci8k"
+path="res://.godot/imported/Screenshot 2026-04-13 at 11.12.30 AM.png-aa2015c1ba4bd571e07ef676b3f8e44f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/girl_tileset.png"
-dest_files=["res://.godot/imported/girl_tileset.png-2547a1caf52d1fb4cc3ffd8c11406fcf.ctex"]
+source_file="res://screenshot/Screenshot 2026-04-13 at 11.12.30 AM.png"
+dest_files=["res://.godot/imported/Screenshot 2026-04-13 at 11.12.30 AM.png-aa2015c1ba4bd571e07ef676b3f8e44f.ctex"]
 
 [params]
 

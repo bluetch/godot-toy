@@ -20,8 +20,8 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0.7058824)
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1988177463]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1934.6133
+offset_bottom = 1079.0
 texture = ExtResource("2_18v33")
 
 [node name="ClockFace" type="Sprite2D" parent="." unique_id=1469587361]

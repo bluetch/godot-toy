@@ -37,7 +37,8 @@ tile_set = SubResource("TileSet_0tnpc")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=974346191]
 visible = false
-position = Vector2(640, 362)
+position = Vector2(962.00006, 541)
+scale = Vector2(1.4088236, 1.4428191)
 texture = ExtResource("1_p57ef")
 
 [node name="RepairMinigame" parent="." unique_id=1333056559 instance=ExtResource("2_iywne")]
@@ -51,7 +52,6 @@ position = Vector2(177, 452)
 scale = Vector2(6, 6)
 
 [node name="DialogBox" parent="." unique_id=487093465 instance=ExtResource("3_lnu2h")]
-visible = false
 
 [node name="DayTransition" parent="." unique_id=1091179209 instance=ExtResource("5_iywne")]
 visible = false

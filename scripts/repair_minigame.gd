@@ -34,6 +34,9 @@ func _ready():
 	snap_hint.position = clock_center - Vector2(40, 40)
 	snap_hint.hide()
 	hide()
+	# debug 專用，只有「直接跑這個場景」時才自動 start
+	if OS.is_debug_build() and get_parent() == get_tree().root:
+		start()
 	hint_button.pressed.connect(Callable(self, "_on_hint_button_pressed"))
 
 # 由 player.gd 呼叫，重置並啟動小遊戲
