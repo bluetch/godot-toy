@@ -4,3 +4,8 @@
 
 # Claude Code local settings
 .claude/
+
+# AI tool config files (local only)
+AGENTS.md
+CLAUDE.md
+.cursor/
