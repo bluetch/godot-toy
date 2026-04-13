@@ -1,0 +1,7 @@
+---
+description: 玩具工廠遊戲專案的完整上下文，協助所有 AI 工具了解開發者、故事、進度與協作方式
+globs: ["**/*.gd", "**/*.tscn", "**/*.tres", "**/*.godot"]
+alwaysApply: true
+---
+
+@../../CLAUDE.md
