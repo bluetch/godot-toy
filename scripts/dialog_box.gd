@@ -7,9 +7,9 @@ signal dialogue_finished
 
 # @onready 代表「場景載入完成後才取得這個節點的參考」
 # $ 是 get_node() 的縮寫，路徑對應 Scene 面板的節點樹結構
-@onready var label: Label = $Control/Panel/Label
+@onready var label: Label = $Control/Panel/MarginContainer/VBoxContainer/Label
 @onready var panel: Panel = $Control/Panel
-@onready var arrow: Label = $Control/Panel/Arrow
+@onready var arrow: Label = $Control/Panel/MarginContainer/Arrow
 
 # 目前這段對話的所有句子（Array）
 var lines: Array = []
