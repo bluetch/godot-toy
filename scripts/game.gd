@@ -46,13 +46,13 @@ func _on_player_interact_requested(target) -> void:
 		dialogue_box.show_dialogue(target.dialogue_before)
 		return
 
-	# 一般調查物只顯示描述文字，不進修復小遊戲。
+	# 一般調查物顯示描述文字，並根據是否開啟過給出不同對話
 	if target.is_in_group("inspectable"):
-		target.open()
+		var lines = target.interact()
 		current_target = target
 		state = FlowState.INSPECTING
 		player.interaction_locked = true
-		dialogue_box.show_dialogue(target.description_lines)
+		dialogue_box.show_dialogue(lines)
 
 func _on_dialogue_finished() -> void:
 	if state == FlowState.TALKING_BEFORE:

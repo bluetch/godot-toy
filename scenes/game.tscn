@@ -275,7 +275,8 @@ shape = SubResource("RectangleShape2D_inspectable_box")
 
 [node name="Carton" parent="InspectableObject" unique_id=1066128007 instance=ExtResource("4_4v8eh")]
 position = Vector2(1, 61.5)
-description_lines = Array[String](["紙箱封條早就鬆了，像被人反覆打開過。", "裡面沒有玩具，只剩幾片碎紙和灰塵。"])
+description_lines = Array[String](["紙箱封條早就鬆了，像被人反覆打開過。", "裡面沒有東西，只剩幾片碎紙和灰塵。"])
+drop_item_id = "rusty_gear"
 opened_texture = SubResource("AtlasTexture_carton_open")
 
 [node name="Sprite2D" parent="InspectableObject/Carton" index="0" unique_id=2016259260]
