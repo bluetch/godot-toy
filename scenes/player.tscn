@@ -41,3 +41,5 @@ frame_progress = 0.2505923
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1217740473]
 shape = SubResource("CircleShape2D_tuyoq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1430699062]

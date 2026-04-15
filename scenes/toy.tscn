@@ -63,7 +63,7 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvm4y"]
 
-[node name="Toy" type="Area2D" unique_id=261078512]
+[node name="Toy" type="Area2D" unique_id=261078512 groups=["toy"]]
 scale = Vector2(4, 4)
 script = ExtResource("1_2u4uf")
 

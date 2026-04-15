@@ -74,7 +74,6 @@ func _finish_typing():
 
 # 由外部呼叫，處理「按 E」的邏輯
 func next_line():
-	print("next_line called, _is_typing: ", _is_typing, " current_line: ", current_line)
 	# 還在打字中 → 快進到完整文字，不跳下一句
 	if _is_typing:
 		_finish_typing()

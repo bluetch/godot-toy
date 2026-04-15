@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="toy"
-run/main_scene="uid://c0swrriuwgntu"
+run/main_scene="uid://cjupta7edtldt"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
