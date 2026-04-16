@@ -42,8 +42,18 @@ func show_dialogue(dialogue: Array):
 	_start_typing(lines[current_line])
 
 # 開始打一句新的話，重置打字機狀態
-func _start_typing(text: String):
-	_full_text = text
+func _start_typing(text_or_dict):
+	if typeof(text_or_dict) == TYPE_DICTIONARY:
+		# JSON 格式會有 speaker 和 text
+		var speaker = text_or_dict.get("speaker", "")
+		var line = text_or_dict.get("text", "")
+		if speaker != "":
+			_full_text = "【" + speaker + "】" + line
+		else:
+			_full_text = line
+	else:
+		_full_text = str(text_or_dict)
+		
 	_char_index = 0
 	_is_typing = true
 	label.text = ""

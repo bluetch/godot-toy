@@ -188,18 +188,25 @@ texture = ExtResource("5_dinhu")
 29:15/0 = 0
 0:0/size_in_atlas = Vector2i(5, 3)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 5:0/size_in_atlas = Vector2i(5, 3)
 5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 10:0/size_in_atlas = Vector2i(5, 3)
 10:0/0 = 0
+10:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 0:4/size_in_atlas = Vector2i(5, 3)
 0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 5:4/size_in_atlas = Vector2i(5, 3)
 5:4/0 = 0
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 10:4/size_in_atlas = Vector2i(5, 3)
 10:4/0 = 0
+10:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-36, -20, 36, -20, 36, 12, -36, 12)
 
 [sub_resource type="TileSet" id="TileSet_kvuet"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_dinhu")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_inspectable_box"]
@@ -208,10 +215,6 @@ region = Rect2(16, 128, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inspectable_box"]
 size = Vector2(13, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_carton_open"]
-atlas = ExtResource("10_kvuet")
-region = Rect2(48, 0, 64, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_inspectable_corner"]
 atlas = ExtResource("10_kvuet")
@@ -265,6 +268,7 @@ scale = Vector2(2, 2)
 
 [node name="Book01" parent="InspectableObject" unique_id=1007911374 instance=ExtResource("4_4v8eh")]
 description_lines = Array[String](["Book01 描述line1", "Book01 描述line2"])
+obtained_item_id = "mouth_patch"
 
 [node name="Sprite2D" parent="InspectableObject/Book01" index="0" unique_id=2016259260]
 texture = SubResource("AtlasTexture_inspectable_box")
@@ -276,8 +280,6 @@ shape = SubResource("RectangleShape2D_inspectable_box")
 [node name="Carton" parent="InspectableObject" unique_id=1066128007 instance=ExtResource("4_4v8eh")]
 position = Vector2(1, 61.5)
 description_lines = Array[String](["紙箱封條早就鬆了，像被人反覆打開過。", "裡面沒有東西，只剩幾片碎紙和灰塵。"])
-drop_item_id = "rusty_gear"
-opened_texture = SubResource("AtlasTexture_carton_open")
 
 [node name="Sprite2D" parent="InspectableObject/Carton" index="0" unique_id=2016259260]
 texture = SubResource("AtlasTexture_inspectable_corner")
@@ -289,6 +291,7 @@ shape = SubResource("RectangleShape2D_inspectable_corner")
 [node name="Book03" parent="InspectableObject" unique_id=1841150158 instance=ExtResource("4_4v8eh")]
 position = Vector2(65.5, 89.5)
 description_lines = Array[String](["櫃子門有點歪，關不起來。", "裡面空空的，只剩一股舊木頭和機油味。"])
+obtained_item_id = "clock_spring"
 
 [node name="Sprite2D" parent="InspectableObject/Book03" index="0" unique_id=2016259260]
 texture = SubResource("AtlasTexture_dinhu")

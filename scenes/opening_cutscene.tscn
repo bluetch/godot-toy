@@ -11,34 +11,7 @@ script/source = "extends CanvasLayer
 
 const CHAR_DELAY = 0.035
 
-const BEATS = [
-	# ── 街頭 ──
-	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"旁白\", \"text\": \"秋天的下午，放學路上。\" },
-	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"女同學\", \"text\": \"欸，你背包上掛的是什麼啊？好舊喔。\" },
-	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"主角\", \"text\": \"⋯⋯朋友送的。很重要的人。\" },
-	{ \"bg\": Color(0.961, 0.929, 0.851), \"speaker\": \"女同學\", \"text\": \"哦～感覺好可愛喔。\" },
-	# ── 男人出現 ──
-	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"旁白\", \"text\": \"一個穿深色大衣的男人走上前，帶著過分親切的笑。\" },
-	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"男人\", \"text\": \"兩位同學好！本店今天新開幕——送你們各一枚扭蛋代幣，歡迎進來看看！\" },
-	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"女同學\", \"text\": \"哇，真的假的！走走走！\" },
-	{ \"bg\": Color(0.922, 0.882, 0.800), \"speaker\": \"旁白\", \"text\": \"她握著代幣，跟了進去。\" },
-	# ── 店內 ──
-	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"店內燈光昏黃，架子上一排排扭蛋機發著光。\" },
-	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"女同學已經跟著那個男人往裡面走了，說說笑笑。\" },
-	{ \"bg\": Color(0.910, 0.843, 0.647), \"speaker\": \"旁白\", \"text\": \"她停下腳步。牆角有一條縫⋯⋯不太對勁的縫。\" },
-	# ── 隱藏走廊 ──
-	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"走廊很窄，天花板很低，燈是壞的。\" },
-	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"走廊盡頭有一台全白的扭蛋機。機器內透出微微的黃光。\" },
-	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"她握著代幣，放進去。\" },
-	{ \"bg\": Color(0.161, 0.165, 0.231), \"speaker\": \"旁白\", \"text\": \"扭蛋緩緩滾出⋯⋯眼前一片白。\" },
-	# ── 工廠，醒來 ──
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"⋯⋯塵灰的味道。木頭和鏽的味道。\" },
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她睜開眼，發現自己趴在地上。\" },
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"主角\", \"text\": \"⋯⋯夢嗎。\" },
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她緩緩起身，低頭看了看自己的手——布製的，有縫線，有鈕扣眼。\" },
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"主角\", \"text\": \"⋯⋯好吧。\" },
-	{ \"bg\": Color(0.224, 0.212, 0.196), \"speaker\": \"旁白\", \"text\": \"她站起來，漫不經心地走進這座廢棄的工廠。\" },
-]
+var BEATS: Array = []
 
 # 現在在第幾個beat
 var _current_beat: int = 0
@@ -56,20 +29,34 @@ var _ending: bool = false
 func _ready() -> void:
 	panel_bg.visible = false
 	background.color = Color.BLACK
-	_show_beat(0)
+	_load_beats_from_json()
+	if BEATS.size() > 0:
+		_show_beat(0)
+
+func _load_beats_from_json() -> void:
+	var file = FileAccess.open(\"res://assets/data/opening.json\", FileAccess.READ)
+	if file:
+		var content = file.get_as_text()
+		var json_data = JSON.parse_string(content)
+		if typeof(json_data) == TYPE_ARRAY:
+			for item in json_data:
+				if item.has(\"bg\") and typeof(item[\"bg\"]) == TYPE_STRING:
+					item[\"bg\"] = Color(item[\"bg\"])
+				BEATS.append(item)
 	
 func _show_beat(index: int) -> void:
-	_can_input = false
 	var beat = BEATS[index]
 	
+	# 背景顏色漸變照常執行，但「不要」等待它完成，這樣玩家點擊時就不會覺得卡卡的
 	var tween = create_tween()
-	tween.tween_property(background, \"color\", beat[\"bg\"], 0.5)
-	await tween.finished
+	tween.tween_property(background, \"color\", beat.get(\"bg\", Color.BLACK), 0.3)
 	
 	if not panel_bg.visible:
 		panel_bg.visible = true
 		
-	speaker_label.text = beat[\"speaker\"]
+	var speaker_name = beat.get(\"speaker\", \"\")
+	speaker_label.text = speaker_name
+		
 	_full_text = beat[\"text\"]
 	_char_index = 0
 	_is_typing = true

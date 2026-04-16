@@ -1,9 +1,8 @@
 extends Area2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
-@onready var label: Label = $Label
 
-@export var prompt_text: String = "E 調查"
+@export var prompt_text: String = "[ Space ] 與其互動"
 @export var description_lines: Array[String] = [
 	"這是一個可互動物件。"
 ]
@@ -17,11 +16,8 @@ extends Area2D
 var has_interacted := false
 
 func _ready() -> void:
-	# 這個腳本只負責互動邏輯；圖片直接在 Sprite2D 節點上設定。
-	label.text = prompt_text
-	label.visible = false
-	# 更新label 置
-	label.position.y = sprite_2d.get_rect().size.y / 2.0 + 0
+	# UI Component has been extracted globally.
+	pass
 
 func interact() -> Array[String]:
 	if has_interacted:
@@ -29,10 +25,27 @@ func interact() -> Array[String]:
 
 	var lines = description_lines.duplicate()
 	if obtained_item_id != "":
-		lines.append(obtained_item_text)
-		# 未來需要背包系統時，可以在這發射信號：
-		# emit_signal("item_found", obtained_item_id)
+		# 任務防呆：如果時序未到，阻止玩家提早獲取道具
+		if obtained_item_id == "mouth_patch" and PlayerState.state < PlayerState.TutorialState.TOLD_TO_FIND_MOUTH:
+			return ["一個生鏽的綠色鐵箱。還沒有理由去翻它。"]
+		elif obtained_item_id == "clock_spring" and PlayerState.state < PlayerState.TutorialState.SAW_FROZEN:
+			return ["一個滿是灰塵的通風口。"]
+			
+		# 自動解析道具名稱，告別「你獲得了一個東西」
+		if PlayerState.ITEM_DB.has(obtained_item_id):
+			var item_name = PlayerState.ITEM_DB[obtained_item_id]["name"]
+			lines.append("【系統】妳獲得了重要道具：[" + item_name + "]！")
+		else:
+			lines.append(obtained_item_text)
+			
 		print("獲得道具/線索: ", obtained_item_id)
+		
+		# 加入背包與更新教學狀態機
+		PlayerState.add_item(obtained_item_id)
+		if obtained_item_id == "mouth_patch":
+			PlayerState.state = PlayerState.TutorialState.HAS_MOUTH
+		elif obtained_item_id == "clock_spring":
+			PlayerState.state = PlayerState.TutorialState.HAS_SPRING
 	
 	has_interacted = true
 	if interacted_texture != null:
@@ -42,12 +55,10 @@ func interact() -> Array[String]:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		label.visible = true
 		body.near_object = self
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		label.visible = false
 		# 只在玩家目前鎖定的是自己時才清空，避免蓋掉別的互動物件。
 		if body.near_object == self:
 			body.near_object = null

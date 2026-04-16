@@ -76,13 +76,7 @@ autoplay = "broken"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1810999779]
 shape = SubResource("RectangleShape2D_gvm4y")
 
-[node name="Label" type="Label" parent="." unique_id=1556055948]
-offset_left = -13.0
-offset_top = 17.25
-offset_right = 13.0
-offset_bottom = 29.25
-theme_override_font_sizes/font_size = 8
-text = "E 互動"
+
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

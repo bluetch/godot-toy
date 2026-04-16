@@ -1,6 +1,5 @@
 extends Area2D
 
-@onready var label: Label = $Label
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 # 修復後玩具要走去的目標位置（在 Inspector 設定）
@@ -12,12 +11,35 @@ var WALK_SPEED = 150
 # 是否已到達目標位置，用來確保動畫切換只執行一次
 var _arrived: bool = false
 
-# 修復前對話內容
-var dialogue_before: Array = [
-	"你知道現在幾點嗎？我已經不知道了。",
-	"我以前是教具。每天早上文文都會來轉動我的指針，一邊說『媽媽，現在是八點！』⋯⋯那是我最喜歡的時刻。",
-	"後來有了手錶，就沒人需要我了。再後來，家裡的狗咬壞了我的指針。我以為我就這樣結束了⋯⋯但我醒來，卻在這裡。為什麼？"
-]
+# 動態互動對話，供外部呼叫
+func interact() -> Array:
+	match PlayerState.state:
+		PlayerState.TutorialState.START:
+			PlayerState.state = PlayerState.TutorialState.TOLD_TO_FIND_MOUTH
+			return _load_json_dialogue("clockman_no_mouth")
+		PlayerState.TutorialState.TOLD_TO_FIND_MOUTH:
+			return [{"speaker": "時鐘人", "text": "那邊有個生鏽的綠色箱子可以翻翻看，如果妳想找布料代替嘴巴的話。"}]
+		PlayerState.TutorialState.HAS_MOUTH:
+			PlayerState.state = PlayerState.TutorialState.SAW_FROZEN
+			return _load_json_dialogue("clockman_frozen")
+		PlayerState.TutorialState.SAW_FROZEN:
+			return [{"speaker": "主角", "text": "（他完全不動了... 去充滿灰塵的通風口那邊，找找看有沒有發條吧。）"}]
+		PlayerState.TutorialState.HAS_SPRING:
+			return _load_json_dialogue("clockman_ready_repair")
+	return []
+
+func is_ready_for_repair() -> bool:
+	return PlayerState.state == PlayerState.TutorialState.HAS_SPRING
+
+func _load_json_dialogue(key: String) -> Array:
+	var path = "res://assets/data/tutorial.json"
+	if not FileAccess.file_exists(path):
+		return []
+	var file = FileAccess.open(path, FileAccess.READ)
+	var content = JSON.parse_string(file.get_as_text())
+	if typeof(content) == TYPE_DICTIONARY and content.has(key):
+		return content[key]
+	return []
 
 # 修復後對話內容
 var dialogue_after: Array = [
@@ -25,9 +47,10 @@ var dialogue_after: Array = [
 	"我記住了。也許我還沒結束。謝謝你。"
 ]
 
+@export var prompt_text: String = "[ Space ] 與其互動"
+
 func _ready():
-	# 互動提示預設隱藏，靠近時才顯示
-	label.visible = false
+	pass
 
 # _process 每幀執行，處理修復後的移動邏輯
 func _process(delta):
@@ -57,13 +80,11 @@ func repair():
 # Area2D 內建 signal：有物體進入碰撞範圍時觸發
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		if not repaired:
-			label.visible = true
 		# 讓玩家知道自己站在這個物件旁邊
 		body.near_object = self
 
 # Area2D 內建 signal：物體離開碰撞範圍時觸發
 func _on_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		label.visible = false
-		body.near_object = null
+		if body.near_object == self:
+			body.near_object = null

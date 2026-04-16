@@ -26,6 +26,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
+radius = 4.506939
 
 [node name="Player" type="CharacterBody2D" unique_id=1977881528 groups=["player"]]
 scale = Vector2(4, 4)
@@ -40,6 +41,7 @@ autoplay = "idle"
 frame_progress = 0.2505923
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1217740473]
+position = Vector2(1, 5.25)
 shape = SubResource("CircleShape2D_tuyoq")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1430699062]
