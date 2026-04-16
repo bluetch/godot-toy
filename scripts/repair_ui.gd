@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		progress += delta / REPAIR_TIME * 100
 		progress = min(progress, 100) # 不超過100
 		bar.value = progress
-		hint_label.text = "按住E修復..."
+		hint_label.text = "按住 Space 修復..."
 		
 		if progress >= 100:
 			hide_ui()
@@ -49,5 +49,5 @@ func _process(delta: float) -> void:
 			progress = 0.0
 			bar.value = 0
 			is_repairing = false
-			hint_label.text = "按住 E 修復 ..."
+			hint_label.text = "按住 Space 修復..."
 			

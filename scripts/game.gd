@@ -82,7 +82,7 @@ func _on_dialogue_finished() -> void:
 			repair_minigame.start()
 	elif state == FlowState.TALKING_AFTER:
 		day_transition.start()
-		# 對話結束先等玩家放開 E，避免同一次輸入又重新互動。
+		# 對話結束先等玩家放開 Space，避免同一次輸入又重新互動。
 		player.interaction_locked = false
 		player.consume_interact_until_release()
 		current_target = null

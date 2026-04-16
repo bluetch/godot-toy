@@ -2,7 +2,6 @@ extends Area2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-@export var prompt_text: String = "[ Space ] 與其互動"
 @export var description_lines: Array[String] = [
 	"這是一個可互動物件。"
 ]
