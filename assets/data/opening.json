@@ -1,27 +1,163 @@
 [
-  { "bg": "#f5ede9", "speaker": "", "text": "秋天的下午，放學路上的天橋。" },
-  { "bg": "#f5ede9", "speaker": "女同學", "text": "欸，你背包上掛的是什麼啊？一個破掉的時鐘娃娃？" },
-  { "bg": "#f5ede9", "speaker": "主角", "text": "⋯⋯朋友送的。很重要的人。" },
-  { "bg": "#f5ede9", "speaker": "女同學", "text": "哦～感覺好難得，你通常不太留這種舊東西耶。" },
-  { "bg": "#e8d7a5", "speaker": "", "text": "一陣嬉鬧聲傳來，幾個小學生從旁跑過，不小心撞到了她的肩膀。" },
-  { "bg": "#e8d7a5", "speaker": "", "text": "「啪」的一聲，背包上那原本就脆弱的縫線斷裂了。" },
-  { "bg": "#e8d7a5", "speaker": "", "text": "那個舊時鐘娃娃咕嚕咕嚕地滾到了天橋的階梯邊緣。" },
-  { "bg": "#e8d7a5", "speaker": "主角", "text": "啊...！" },
-  { "bg": "#292a3b", "speaker": "", "text": "她幾乎是出於本能地撲上前去抓。" },
-  { "bg": "#292a3b", "speaker": "", "text": "手指碰觸到娃娃的瞬間，重心徹底往前傾倒——" },
-  { "bg": "#292a3b", "speaker": "女同學", "text": "小心！！" },
-  { "bg": "#292a3b", "speaker": "", "text": "四周的聲音迅速遠去，伴隨著失重感。世界陷入一片無聲的死白。" },
-  { "bg": "#393632", "speaker": "", "text": "⋯⋯不知道過了多久。" },
-  { "bg": "#393632", "speaker": "", "text": "空氣裡有著舊木頭與棉絮的味道。很溫暖。" },
-  { "bg": "#393632", "speaker": "", "text": "她睜開眼。第一件事是想要出聲回應同學，卻發不出半點聲音。" },
-  { "bg": "#393632", "speaker": "", "text": "她摸摸喉嚨，又看了看自己的手，那是一雙佈滿縫線的布製手臂。" },
-  { "bg": "#393632", "speaker": "", "text": "本該是嘴巴的地方，只剩下一片平坦的布料。" },
-  { "bg": "#393632", "speaker": "主角", "text": "（咦... 變成玩偶了？發不出聲音...）" },
-  { "bg": "#393632", "speaker": "", "text": "沒有想像中的害怕，反倒有種不真實感。" },
-  { "bg": "#393632", "speaker": "主角", "text": "（看來是從樓梯上摔下來，昏倒在做夢吧。）" },
-  { "bg": "#393632", "speaker": "主角", "text": "（連記憶都變得有點模糊... 得先找塊布當作嘴巴，不然這個夢裡連話都不能說。）" },
-  { "bg": "#393632", "speaker": "", "text": "她拍了拍沾著灰塵的布偶身體，緩緩站起。而在她眼前不遠處的角落裡——" },
-  { "bg": "#393632", "speaker": "", "text": "坐著一個面盤破裂、少了指針的大型時鐘人玩具。" },
-  { "bg": "#393632", "speaker": "主角", "text": "（等等... 這個時鐘人...）" },
-  { "bg": "#393632", "speaker": "主角", "text": "（長得跟我剛剛想撿的那個娃娃，一模一樣...）" }
+  {
+	"bg": "#000000",
+	"illustration": "res://assets/images/opening_sky.png",
+	"speed": 2.5,
+	"speaker": "",
+	"text": "「吶，說好了喔。」"
+  },
+  {
+	"bg": "#000000",
+	"illustration": "res://assets/images/opening_sky.png",
+	"speed": 2.0,
+	"speaker": "",
+	"text": "「等我們都長大了，就一起去那座城市唸書。」"
+  },
+  {
+	"bg": "#000000",
+	"illustration": "res://assets/images/opening_sky.png",
+	"speed": 2.5,
+	"speaker": "",
+	"text": "那一年的飛機雲，似乎比往常都要長。"
+  },
+  {
+	"bg": "#f5ede9",
+	"illustration": "res://assets/images/opening_overpass.png",
+	"speed": 1.0,
+	"speaker": "",
+	"text": "秋天的下午，天橋上的風帶著一點點涼意。"
+  },
+  {
+	"bg": "#f5ede9",
+	"illustration": "res://assets/images/opening_overpass.png",
+	"speaker": "女同學",
+	"text": "欸，妳還帶著這個舊時鐘喔？都要畢業了耶。"
+  },
+  {
+	"bg": "#f5ede9",
+	"illustration": "res://assets/images/opening_overpass.png",
+	"speaker": "主角",
+	"text": "嗯。因為這是⋯⋯最重要的約定。"
+  },
+  {
+	"bg": "#e8d7a5",
+	"illustration": "res://assets/images/opening_decesnt.png",
+	"speed": 1.0,
+	"speaker": "",
+	"text": "砰——！"
+  },
+  {
+	"bg": "#e8d7a5",
+	"illustration": "res://assets/images/opening_decesnt.png",
+	"shake": true,
+	"speaker": "",
+	"text": "幾個打鬧的小學生撞過肩頭。那一瞬間，指尖感受到了冰冷的空氣。"
+  },
+  {
+	"bg": "#e8d7a5",
+	"illustration": "res://assets/images/opening_decesnt.png",
+	"speed": 2.0,
+	"speaker": "",
+	"text": "斷裂的線頭，在視線中緩慢地揚起。"
+  },
+  {
+	"bg": "#292a3b",
+	"illustration": "res://assets/images/opening_decesnt.png",
+	"speed": 1.0,
+	"speaker": "",
+	"text": "「不要──！」"
+  },
+  {
+	"bg": "#292a3b",
+	"flash": true,
+	"shake": true,
+	"speed": 2.0,
+	"speaker": "",
+	"text": "我撲向了天橋的邊緣。然後，世界徹底失去了重力。"
+  },
+  {
+	"bg": "#ffffff",
+	"flash": true,
+	"speed": 4.0,
+	"speaker": "",
+	"text": "⋯⋯⋯⋯"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 2.0,
+	"speaker": "",
+	"text": "意識恢復的時候，空氣裡滿是塵埃與鐵鏽的味道。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 1.5,
+	"speaker": "",
+	"text": "很安靜。那是連呼吸聲都聽不見的，寂靜。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 1.0,
+	"speaker": "主角",
+	"text": "（做夢了嗎⋯⋯？）"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 1.5,
+	"speaker": "",
+	"text": "我想開口說話，喉嚨卻像被縫死了一樣沈重。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 2.0,
+	"speaker": "",
+	"text": "低頭一看，映入眼簾的，是一雙佈滿粗糙縫線的、玩偶的手。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 2.0,
+	"speaker": "主角",
+	"text": "（我變成了⋯⋯玩偶？）"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 2.5,
+	"speaker": "",
+	"text": "在這座廢棄的工廠裡，連時間似乎都乾涸了。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 1.0,
+	"speaker": "",
+	"text": "而在不遠處的齒輪堆裡，我看到了一個熟悉的身影。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"shake": true,
+	"speed": 2.0,
+	"speaker": "",
+	"text": "他坐在那裡。面盤破裂、指針遺失，像是壞掉了很久很久。"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 3.0,
+	"speaker": "主角",
+	"text": "「吶，說好了喔⋯⋯」"
+  },
+  {
+	"bg": "#393632",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 4.0,
+	"speaker": "主角",
+	"text": "在那一瞬間，我想想起我們還沒出發的約定。"
+  }
 ]

@@ -20,6 +20,7 @@ var _full_text: String = ""   # 當前這句話的完整內容（打字完成前
 var _char_index: int = 0      # 記錄目前打到第幾個字
 var _is_typing: bool = false  # 打字機狀態鎖定，防止在打字時觸發跳轉
 const CHAR_DELAY = 0.04       # 每個字出現的間隔秒數
+var _current_speed_mult: float = 1.0 # 目前的速度倍率 (1.0 = 正常)
 
 func _ready() -> void:
 	# 初始隱藏整個對話框
@@ -33,10 +34,11 @@ func _ready() -> void:
 	arrow.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 # 【公開函式】讓外部腳本（如 game.gd）啟動對話流
-func show_dialogue(dialogue: Array):
+func show_dialogue(dialogue: Array, speed_mult: float = 1.0):
 	lines = dialogue
 	current_line = 0
 	panel.visible = true
+	_current_speed_mult = speed_mult
 	_start_typing(lines[current_line])
 
 # 開始處理單一行的顯示與打字
@@ -72,8 +74,8 @@ func _type_next_char():
 		dialogue_label.text = _full_text.left(_char_index)
 		
 		# 使用 Timer 達成非阻塞式的等待
-		# CONNECT_ONE_SHOT 類比 JS 的 { once: true }，執行完就移除監聽
-		get_tree().create_timer(CHAR_DELAY).timeout.connect(_type_next_char, CONNECT_ONE_SHOT)
+		# 套用當前速度倍率
+		get_tree().create_timer(CHAR_DELAY * _current_speed_mult).timeout.connect(_type_next_char, CONNECT_ONE_SHOT)
 	else:
 		# 打完了
 		_is_typing = false
