@@ -1,111 +1,125 @@
 extends Node2D
 
-# 目前場景只有兩種互動流程：玩具修復流程、一般調查流程。
+# --- 狀態機 (State Machine) ---
+# 類比 React 裡的狀態管理。我們定義多個模式，確保玩家不會在說話時還能走路。
+# IDLE: 自由移動
+# TALKING_BEFORE: 修復前對話
+# REPAIRING: 修復遊戲進行中
+# TALKING_AFTER: 修復後對話
+# INSPECTING: 一般調查（如看書櫃、箱子）
 enum FlowState { IDLE, TALKING_BEFORE, REPAIRING, TALKING_AFTER, INSPECTING }
 
+# --- 節點參考 (@onready) ---
 @onready var player: CharacterBody2D = $Player
 @onready var dialogue_box = $DialogBox
 @onready var repair_minigame = $RepairMinigame
 @onready var day_transition: CanvasLayer = $DayTransition
 
 var state: FlowState = FlowState.IDLE
-var current_target = null
+var current_target = null  # 記錄目前正在跟哪一個物件互動
 
 func _ready() -> void:
+	# 基礎節點檢查，確保場景掛載正確
 	if player == null:
 		push_error("Game 找不到 Player 節點。")
 		return
-	if dialogue_box == null:
-		push_error("Game 找不到 DialogBox 節點。")
-		return
-	if repair_minigame == null:
-		push_error("Game 找不到 RepairMinigame 節點。")
-		return
-	if day_transition == null:
-		push_error("Game 找不到 DayTransition 節點。")
-		return
 
-	# 動態注入背包 UI (自動綁定 B 鍵)
+	# 動態注入 (Dynamic Injection)
+	# 把常用的 UI (背包、互動提示) 預載進來並掛載到場景中
+	# 類比網頁裡的 appendChild(element)
 	var inv_hud = preload("res://scenes/inventory_hud.tscn").instantiate()
 	add_child(inv_hud)
 
-	# 動態注入全域 Hover Prompt
 	var prompt = preload("res://scenes/interact_prompt.tscn").instantiate()
 	prompt.player = player
 	add_child(prompt)
 
+	# --- 事件監聽 (Signals Connection) ---
+	# 類比 JS 的 element.addEventListener('event', callback)
 	player.interact_requested.connect(_on_player_interact_requested)
 	dialogue_box.dialogue_finished.connect(_on_dialogue_finished)
 	repair_minigame.minigame_completed.connect(_on_repair_completed)
 
+# 當玩家靠近物件並按鍵時觸發
 func _on_player_interact_requested(target) -> void:
-	if state != FlowState.IDLE:
-		return
-	if target == null:
-		return
+	if state != FlowState.IDLE: return  # 如果已經在說話，就忽略新的互動
+	if target == null: return
 
-	# 玩具會進入完整的修復流程：修復前對話 -> 修復 -> 修復後對話。
+	# 分流處理：根據節點所屬的群組 (Groups) 決定行為
+	# Group 類比 CSS 的 Class 名稱，例如這是一個 .toy 還是 .inspectable
 	if target.is_in_group("toy"):
-		if target.repaired:
-			return
+		_handle_toy_interaction(target)
+	elif target.is_in_group("inspectable"):
+		_handle_inspectable_interaction(target)
 
-		current_target = target
-		state = FlowState.TALKING_BEFORE
-		player.interaction_locked = true
-		
-		# 支援新版動態對話，若無則降級使用舊版
-		if target.has_method("interact"):
-			dialogue_box.show_dialogue(target.interact())
-		else:
-			dialogue_box.show_dialogue(target.dialogue_before)
-		return
+# 處理玩具邏輯：觸發完整的修復任務流
+func _handle_toy_interaction(target) -> void:
+	if target.repaired: return
 
-	# 一般調查物顯示描述文字，並根據是否開啟過給出不同對話
-	if target.is_in_group("inspectable"):
-		var lines = target.interact()
-		current_target = target
-		state = FlowState.INSPECTING
-		player.interaction_locked = true
-		dialogue_box.show_dialogue(lines)
+	current_target = target
+	state = FlowState.TALKING_BEFORE
+	player.interaction_locked = true  # 鎖住角色移動
+	
+	# 優先尋找物件自定義的 interact() 邏輯，若沒寫則使用預設屬性
+	if target.has_method("interact"):
+		dialogue_box.show_dialogue(target.interact())
+	else:
+		dialogue_box.show_dialogue(target.dialogue_before)
 
+# 處理調查邏輯：單純顯示文字
+func _handle_inspectable_interaction(target) -> void:
+	var lines = target.interact()
+	current_target = target
+	state = FlowState.INSPECTING
+	player.interaction_locked = true
+	dialogue_box.show_dialogue(lines)
+
+# 當對話框發出結束信號 (dialogue_finished) 時的回調
 func _on_dialogue_finished() -> void:
-	if state == FlowState.TALKING_BEFORE:
-		# 檢查是否符合修復條件（例如：已取得發條）
-		if current_target.has_method("is_ready_for_repair") and not current_target.is_ready_for_repair():
-			# 條件未滿，不進入修復，直接結束互動
-			player.interaction_locked = false
-			player.consume_interact_until_release()
-			current_target = null
-			state = FlowState.IDLE
-		else:
-			state = FlowState.REPAIRING
-			repair_minigame.start()
-	elif state == FlowState.TALKING_AFTER:
-		day_transition.start()
-		# 對話結束先等玩家放開 Space，避免同一次輸入又重新互動。
-		player.interaction_locked = false
-		player.consume_interact_until_release()
-		current_target = null
-		state = FlowState.IDLE
-	elif state == FlowState.INSPECTING:
-		# 調查點讀完後直接回到可移動狀態，不觸發任何額外流程。
-		player.interaction_locked = false
-		player.consume_interact_until_release()
-		current_target = null
-		state = FlowState.IDLE
+	match state:
+		FlowState.TALKING_BEFORE:
+			# 修復前對話結束 -> 檢查是否具備修復條件
+			if current_target.has_method("is_ready_for_repair") and not current_target.is_ready_for_repair():
+				# 條件未滿足，回到 IDLE 狀態，解開移動鎖
+				_reset_to_idle()
+			else:
+				# 進入修復遊戲
+				state = FlowState.REPAIRING
+				repair_minigame.start()
+				
+		FlowState.TALKING_AFTER:
+			# 修復後對話結束 -> 執行過場並切換到下一天
+			day_transition.start()
+			_reset_to_idle()
+			
+		FlowState.INSPECTING:
+			# 調查讀完，直接解鎖
+			_reset_to_idle()
 
+# 重置狀態與玩家鎖定
+func _reset_to_idle() -> void:
+	# consume_interact_until_release() 是為了解決按一次鍵會觸發兩次對話的「黏滯感」
+	player.interaction_locked = false
+	player.consume_interact_until_release()
+	current_target = null
+	state = FlowState.IDLE
+
+# 當小遊戲過關時的回調
 func _on_repair_completed() -> void:
-	if current_target == null:
-		return
+	if current_target == null: return
 
-	current_target.repair()
+	current_target.repair() # 執行玩具內部的修復函式
 	current_target.animated_sprite_2d.play("idle")
+	
+	# 切換狀態並啟動修復後的對話
 	state = FlowState.TALKING_AFTER
 	dialogue_box.show_dialogue(current_target.dialogue_after)
 
+# 全域輸入處理：按鍵推進對話
 func _unhandled_input(event: InputEvent) -> void:
-	if not event.is_action_pressed("interact"):
-		return
-	if state == FlowState.TALKING_BEFORE or state == FlowState.TALKING_AFTER or state == FlowState.INSPECTING:
+	if not event.is_action_pressed("interact"): return
+	
+	# 如果正在說話中，按鍵會觸發下一行文字
+	if state in [FlowState.TALKING_BEFORE, FlowState.TALKING_AFTER, FlowState.INSPECTING]:
 		if dialogue_box.dialogue_is_visible():
 			dialogue_box.next_line()
