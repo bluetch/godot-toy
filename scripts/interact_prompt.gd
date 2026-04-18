@@ -1,25 +1,47 @@
 extends Node2D
 
-@onready var label: Label = $Label
+@onready var icon: Sprite2D = $Sprite2D
 var player: CharacterBody2D
 
+var _target_visible: bool = false
+var _current_tween: Tween
+
 func _ready():
+	# 初始隱藏，並縮小
+	modulate.a = 0
+	scale = Vector2.ZERO
 	visible = false
 
 func _process(_delta):
 	if player == null:
 		return
-		
-	if player.near_object != null:
+	
+	# 檢查玩家是否靠近物件
+	var is_near = player.near_object != null
+	
+	# 狀態切換：只有在狀態改變時才觸發動畫 (避免重複觸發)
+	if is_near != _target_visible:
+		_target_visible = is_near
+		_animate_visibility(_target_visible)
+	
+	if visible and player.near_object != null:
+		# 1. 位置更新：跟隨物件
+		global_position = player.near_object.global_position + Vector2(0, -65)
+
+# 處理「出現在場景中」的動畫
+func _animate_visibility(should_show: bool):
+	if _current_tween and _current_tween.is_valid():
+		_current_tween.kill()
+	
+	_current_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	
+	if should_show:
 		visible = true
-		
-		# 動態更新座標到互動物件的正上方 (加上一個垂直偏移量避免擋到物件)
-		global_position = player.near_object.global_position + Vector2(0, -60)
-		
-		# 動態抓取提示文字
-		if player.near_object.get("prompt_text") != null:
-			label.text = player.near_object.prompt_text
-		else:
-			label.text = "[ Space ] 與其互動"
+		_current_tween.tween_property(self, "scale", Vector2(1, 1), 0.2)
+		_current_tween.tween_property(self, "modulate:a", 0.8, 0.2) # 稍微帶一點透明感，更融入背景
 	else:
-		visible = false
+		# 縮小並淡出
+		var fade_tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		fade_tween.tween_property(self, "scale", Vector2.ZERO, 0.15)
+		fade_tween.tween_property(self, "modulate:a", 0.0, 0.15)
+		fade_tween.chain().step_finished.connect(func(): visible = false)
