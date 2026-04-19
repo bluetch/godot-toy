@@ -6,7 +6,7 @@ signal dialogue_finished
 
 # --- 節點參考 (@onready) ---
 # 使用 $ 取得節點路徑。這是在「場景樹」載入完成後才會執行的參考賦值。
-@onready var dialogue_label: Label = $Control/Panel/MarginContainer/VBoxContainer/Dialogue
+@onready var dialogue_label: RichTextLabel = $Control/Panel/MarginContainer/VBoxContainer/Dialogue
 @onready var panel: Panel = $Control/Panel
 @onready var arrow: Label = $Control/Panel/MarginContainer/Arrow
 @onready var speaker_label: Label = $Control/Panel/SpeakerBracket/Margin/Speaker
@@ -35,6 +35,10 @@ func _ready() -> void:
 
 # 【公開函式】讓外部腳本（如 game.gd）啟動對話流
 func show_dialogue(dialogue: Array, speed_mult: float = 1.0):
+	if dialogue.is_empty():
+		printerr("[Error] 嘗試顯示空的對話陣列。")
+		return
+		
 	lines = dialogue
 	current_line = 0
 	panel.visible = true
@@ -47,6 +51,11 @@ func _start_typing(text_or_dict):
 	if typeof(text_or_dict) == TYPE_DICTIONARY:
 		var speaker = text_or_dict.get("speaker", "")
 		var line = text_or_dict.get("text", "")
+		
+		# 動態改名邏輯：如果在 PlayerState 裡有映射，就用映射的名字（如：???）
+		if PlayerState.known_names.has(speaker):
+			speaker = PlayerState.known_names[speaker]
+			
 		speaker_label.text = speaker
 		# 如果名字標籤是空字串，就隱藏整個背景框 (SpeakerBracket)
 		speaker_bracket.visible = speaker != "" 
@@ -57,9 +66,10 @@ func _start_typing(text_or_dict):
 		_full_text = str(text_or_dict)
 
 	# 重置打字機指針並開始遞迴
-	_char_index = 0
 	_is_typing = true
-	dialogue_label.text = ""
+	dialogue_label.text = _full_text
+	dialogue_label.visible_characters = 0
+	_char_index = 0
 	arrow.visible = false
 	_type_next_char()
 
@@ -68,13 +78,10 @@ func _type_next_char():
 	if not _is_typing:
 		return
 		
-	if _char_index < _full_text.length():
-		_char_index += 1
-		# String.left(n) 類比 JS 的 slice(0, n)
-		dialogue_label.text = _full_text.left(_char_index)
+	if dialogue_label.visible_characters < dialogue_label.get_total_character_count():
+		dialogue_label.visible_characters += 1
 		
 		# 使用 Timer 達成非阻塞式的等待
-		# 套用當前速度倍率
 		get_tree().create_timer(CHAR_DELAY * _current_speed_mult).timeout.connect(_type_next_char, CONNECT_ONE_SHOT)
 	else:
 		# 打完了
@@ -84,8 +91,7 @@ func _type_next_char():
 # 快進邏輯：如果玩家在打字時按鍵，直接顯示全文
 func _finish_typing():
 	_is_typing = false
-	_char_index = _full_text.length()
-	dialogue_label.text = _full_text
+	dialogue_label.visible_characters = -1 # -1 代表顯示所有文字
 	arrow.visible = true
 
 # 【核心功能】外部呼叫來推進對話（例如按 Space 鍵）

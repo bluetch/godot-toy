@@ -29,16 +29,14 @@ func _on_inventory_changed() -> void:
 	
 	# 根據目前擁有的道具建立新清單
 	for item_id in PlayerState.inventory:
-		if PlayerState.ITEM_DB.has(item_id):
-			var item_data = PlayerState.ITEM_DB[item_id]
-			
+		if PlayerState.has_item_data(item_id):
 			# 用 Button 作為條目，不僅有點擊反饋，還原生支援 Hover Tooltip
 			var btn = Button.new()
-			btn.text = item_data["name"]
+			btn.text = PlayerState.get_item_name(item_id)
 			btn.alignment = HORIZONTAL_ALIGNMENT_LEFT
 			
 			# 當滑鼠懸停時顯示道具的敘述
-			btn.tooltip_text = item_data["desc"]
+			btn.tooltip_text = PlayerState.get_item_desc(item_id)
 			
 			# 視覺留白設定
 			btn.custom_minimum_size = Vector2(0, 50)

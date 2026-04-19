@@ -1,163 +1,172 @@
 [
   {
-	"bg": "#000000",
-	"illustration": "res://assets/images/opening_sky.png",
-	"speed": 2.5,
+	"bg": "#fcf7f2",
+	"illustration": "",
+	"speed": 1.5,
 	"speaker": "",
-	"text": "「吶，說好了喔。」"
+	"text": "「吶，妳知道嗎？」"
   },
   {
-	"bg": "#000000",
-	"illustration": "res://assets/images/opening_sky.png",
+	"bg": "#fcf7f2",
+	"illustration": "",
 	"speed": 2.0,
 	"speaker": "",
-	"text": "「等我們都長大了，就一起去那座城市唸書。」"
+	"text": "「這些齒輪就像人一樣，必須要互相牽著手，才能一起往前走喔。」"
   },
   {
-	"bg": "#000000",
-	"illustration": "res://assets/images/opening_sky.png",
+	"bg": "#fcf7f2",
+	"illustration": "",
 	"speed": 2.5,
 	"speaker": "",
-	"text": "那一年的飛機雲，似乎比往常都要長。"
+	"text": "外公以前總是一邊調校著發條，一邊對我說：『如果它們停下了，可能只是其中一個累了，我們幫它找回彼此，時間就又能出發了。』"
   },
   {
-	"bg": "#f5ede9",
-	"illustration": "res://assets/images/opening_overpass.png",
+	"bg": "#ff9d6e",
+	"illustration": "",
 	"speed": 1.0,
 	"speaker": "",
-	"text": "秋天的下午，天橋上的風帶著一點點涼意。"
+	"text": "天橋上的夕陽像是一層薄薄的橘子醬。空氣中飄著淡淡的、剛割過草的香氣。"
   },
   {
-	"bg": "#f5ede9",
-	"illustration": "res://assets/images/opening_overpass.png",
+	"bg": "#ff9d6e",
+	"illustration": "",
 	"speaker": "女同學",
-	"text": "欸，妳還帶著這個舊時鐘喔？都要畢業了耶。"
+	"text": "欸，都要畢業了，妳那個髒兮兮的時鐘吊飾真的不打算換一個喔？"
   },
   {
-	"bg": "#f5ede9",
-	"illustration": "res://assets/images/opening_overpass.png",
+	"bg": "#ff9d6e",
+	"illustration": "",
+	"speaker": "女同學",
+	"text": "去市中心讀書時再買一個新的啦，我送妳？這玩意又不準，掛在書包上好怪。"
+  },
+  {
+	"bg": "#ff9d6e",
+	"illustration": "",
 	"speaker": "主角",
-	"text": "嗯。因為這是⋯⋯最重要的約定。"
+	"text": "⋯⋯才不要，我掛習慣了。而且要是現在拿掉，總覺得心裡會空空的。"
   },
   {
-	"bg": "#e8d7a5",
-	"illustration": "res://assets/images/opening_decesnt.png",
+	"bg": "#ff7c40",
+	"illustration": "",
 	"speed": 1.0,
+	"speaker": "",
+	"text": "那是一個再平凡不過的下午。平凡到讓人感覺，這樣的陽光會持續到永遠。"
+  },
+  {
+	"bg": "#ff7c40",
+	"illustration": "",
+	"shake": true,
+	"flash": true,
 	"speaker": "",
 	"text": "砰——！"
   },
   {
-	"bg": "#e8d7a5",
-	"illustration": "res://assets/images/opening_decesnt.png",
-	"shake": true,
+	"bg": "#cc5500",
+	"illustration": "",
+	"speed": 3.0,
 	"speaker": "",
-	"text": "幾個打鬧的小學生撞過肩頭。那一瞬間，指尖感受到了冰冷的空氣。"
-  },
-  {
-	"bg": "#e8d7a5",
-	"illustration": "res://assets/images/opening_decesnt.png",
-	"speed": 2.0,
-	"speaker": "",
-	"text": "斷裂的線頭，在視線中緩慢地揚起。"
-  },
-  {
-	"bg": "#292a3b",
-	"illustration": "res://assets/images/opening_decesnt.png",
-	"speed": 1.0,
-	"speaker": "",
-	"text": "「不要──！」"
-  },
-  {
-	"bg": "#292a3b",
-	"flash": true,
-	"shake": true,
-	"speed": 2.0,
-	"speaker": "",
-	"text": "我撲向了天橋的邊緣。然後，世界徹底失去了重力。"
+	"text": "幾個嬉鬧的影子撞過了肩膀。書包上的時鐘吊飾，像斷了線的紙鳶一樣飛了出去。"
   },
   {
 	"bg": "#ffffff",
+	"illustration": "",
+	"speed": 1.0,
 	"flash": true,
+	"speaker": "",
+	"text": "我甚至沒有感到害怕。只是想著，外公留下的那個「安心感」，絕對不能弄丟。"
+  },
+  {
+	"bg": "#000000",
+	"illustration": "",
+	"shake": true,
 	"speed": 4.0,
 	"speaker": "",
-	"text": "⋯⋯⋯⋯"
+	"text": "欄杆外的世界突然變得很輕。我聽見了繩子崩斷的聲音，還有最後一刻細微的滴答聲。"
   },
   {
-	"bg": "#393632",
-	"illustration": "res://assets/images/opening_factory.png",
+	"bg": "#000000",
+	"illustration": "",
 	"speed": 2.0,
 	"speaker": "",
-	"text": "意識恢復的時候，空氣裡滿是塵埃與鐵鏽的味道。"
+	"text": "⋯⋯好暖。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
+	"illustration": "res://assets/images/opening_factory.png",
+	"speed": 2.0,
+	"flash": true,
+	"speaker": "",
+	"text": "意識甦醒的時候，臉頰貼著的是柔軟的、帶著陽光味的布料。"
+  },
+  {
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 1.5,
 	"speaker": "",
-	"text": "很安靜。那是連呼吸聲都聽不見的，寂靜。"
+	"text": "沒有痛楚，也沒有轟鳴聲。這裡靜得像是一個剛曬好的被窩。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 1.0,
 	"speaker": "主角",
-	"text": "（做夢了嗎⋯⋯？）"
+	"text": "（這裡是⋯⋯哪裡？天橋呢？那家鬆餅店呢？）"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 1.5,
 	"speaker": "",
-	"text": "我想開口說話，喉嚨卻像被縫死了一樣沈重。"
+	"text": "我想揉揉眼睛，但手指的觸感卻很陌生。那是被藍色棉線細心縫製而成的，布偶的手。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 2.0,
 	"speaker": "",
-	"text": "低頭一看，映入眼簾的，是一雙佈滿粗糙縫線的、玩偶的手。"
+	"text": "這座安靜的工廠裡，有無數被遺忘的物件在沈睡。它們看起來並不孤單，只是在等待著什麼。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 2.0,
 	"speaker": "主角",
-	"text": "（我變成了⋯⋯玩偶？）"
+	"text": "（我的聲音⋯⋯怎麼聽起來，像是一個壞掉的音樂盒？）"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 2.5,
 	"speaker": "",
-	"text": "在這座廢棄的工廠裡，連時間似乎都乾涸了。"
+	"text": "在一堆舊零件旁邊，我看到了那個熟悉的吊飾。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 1.0,
 	"speaker": "",
-	"text": "而在不遠處的齒輪堆裡，我看到了一個熟悉的身影。"
+	"text": "它坐在那裡，像個正在打瞌睡的老紳士。外殼裂開了一道溫柔的笑痕。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"shake": true,
 	"speed": 2.0,
 	"speaker": "",
-	"text": "他坐在那裡。面盤破裂、指針遺失，像是壞掉了很久很久。"
+	"text": "它的繩子已經斷了，指針也不再轉動，但核心深處，依然有一絲溫熱在跳動。"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 3.0,
 	"speaker": "主角",
-	"text": "「吶，說好了喔⋯⋯」"
+	"text": "「如果齒輪停下了⋯⋯」"
   },
   {
-	"bg": "#393632",
+	"bg": "#f9f6f2",
 	"illustration": "res://assets/images/opening_factory.png",
 	"speed": 4.0,
 	"speaker": "主角",
-	"text": "在那一瞬間，我想想起我們還沒出發的約定。"
+	"text": "我想起在那一瞬間，我終於親手找回了那些被遺落在各處的、重要的彼此。"
   }
 ]

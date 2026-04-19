@@ -25,6 +25,8 @@ func interact() -> Array:
 		PlayerState.TutorialState.SAW_FROZEN:
 			return [{"speaker": "主角", "text": "（他完全不動了... 去充滿灰塵的通風口那邊，找找看有沒有發條吧。）"}]
 		PlayerState.TutorialState.HAS_SPRING:
+			# 此時觸發認識名字
+			PlayerState.learn_name("時鐘人", "克洛斯")
 			return _load_json_dialogue("clockman_ready_repair")
 	return []
 

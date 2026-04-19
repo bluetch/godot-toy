@@ -169,7 +169,8 @@ position = Vector2(461, 521)
 scale = Vector2(2, 2)
 
 [node name="Book01" parent="InspectableObject" unique_id=1007911374 instance=ExtResource("4_4v8eh")]
-description_lines = Array[String](["Book01 描述line1", "Book01 描述line2"])
+inspectable_id = "green_box"
+description_lines = Array[String]([])
 obtained_item_id = "mouth_patch"
 
 [node name="Sprite2D" parent="InspectableObject/Book01" index="0" unique_id=2016259260]
@@ -181,7 +182,8 @@ shape = SubResource("RectangleShape2D_inspectable_box")
 
 [node name="Carton" parent="InspectableObject" unique_id=1066128007 instance=ExtResource("4_4v8eh")]
 position = Vector2(1, 61.5)
-description_lines = Array[String](["紙箱封條早就鬆了，像被人反覆打開過。", "裡面沒有東西，只剩幾片碎紙和灰塵。"])
+inspectable_id = "carton"
+description_lines = Array[String]([])
 
 [node name="Sprite2D" parent="InspectableObject/Carton" index="0" unique_id=2016259260]
 texture = SubResource("AtlasTexture_inspectable_corner")
@@ -192,7 +194,8 @@ shape = SubResource("RectangleShape2D_inspectable_corner")
 
 [node name="Book03" parent="InspectableObject" unique_id=1841150158 instance=ExtResource("4_4v8eh")]
 position = Vector2(65.5, 89.5)
-description_lines = Array[String](["櫃子門有點歪，關不起來。", "裡面空空的，只剩一股舊木頭和機油味。"])
+inspectable_id = "rusty_vent"
+description_lines = Array[String]([])
 obtained_item_id = "clock_spring"
 
 [node name="Sprite2D" parent="InspectableObject/Book03" index="0" unique_id=2016259260]
